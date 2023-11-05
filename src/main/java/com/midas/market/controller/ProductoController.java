@@ -2,7 +2,7 @@ package com.midas.market.controller;
 
 import com.midas.market.entity.producto.*;
 import com.midas.market.repository.ProductoRepository;
-import com.midas.market.service.ProductoService;
+import com.midas.market.service.ProductoServiceImpl;
 import io.swagger.v3.oas.annotations.Operation;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
@@ -24,7 +24,7 @@ public class ProductoController {
     private ProductoRepository productoRepository;
 
     @Autowired
-    private ProductoService productoService;
+    private ProductoServiceImpl productoService;
 
 
     @GetMapping

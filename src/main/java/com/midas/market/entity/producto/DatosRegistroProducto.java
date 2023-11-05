@@ -1,6 +1,5 @@
 package com.midas.market.entity.producto;
 
-import com.midas.market.config.exceptions.InvalidEnumException;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.validation.constraints.*;
@@ -13,6 +12,7 @@ public record DatosRegistroProducto(
         @NotBlank(message = "{marca.obligatorio}")
         String marca,
         @NotNull(message = "{categoria.obligatorio}")
+        @Enumerated(EnumType.STRING)
         Categoria categoria,
         @NotNull(message = "{precio.obligatorio}")
         @Positive(message = "{precio.positivo}")

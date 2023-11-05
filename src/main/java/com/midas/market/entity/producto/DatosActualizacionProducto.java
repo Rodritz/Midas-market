@@ -1,6 +1,6 @@
 package com.midas.market.entity.producto;
 
-import com.midas.market.repository.Update;
+import com.midas.market.service.Update;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.validation.constraints.*;
