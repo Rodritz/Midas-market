@@ -1,9 +1,9 @@
 package com.midas.market.service;
 
-import com.midas.market.entity.producto.DatosActualizacionProducto;
-import com.midas.market.entity.producto.DatosRegistroProducto;
-import com.midas.market.entity.producto.DatosRespuestaProducto;
-import com.midas.market.entity.producto.DatoslistadoProducto;
+import com.midas.market.entity.dto.DatosActualizacionProducto;
+import com.midas.market.entity.dto.DatosRegistroProducto;
+import com.midas.market.entity.dto.DatosRespuestaProducto;
+import com.midas.market.entity.dto.DatosListadoProducto;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.util.UriComponentsBuilder;
@@ -23,5 +23,5 @@ public interface IProductoService {
 
     URI buildProductUri(UriComponentsBuilder uriComponentsBuilder, Long id);
 
-    Page<DatoslistadoProducto> findAllActivos(Pageable paginacion);
+    Page<DatosListadoProducto> findAllActivos(Pageable paginacion);
 }

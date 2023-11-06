@@ -5,15 +5,12 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
-
-import java.lang.annotation.Annotation;
 import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
@@ -21,18 +18,6 @@ import java.util.Map;
 @RestControllerAdvice
 public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 
-//    @ExceptionHandler({RuntimeException.class})
-//    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-//    public ResponseEntity<Object> handleRuntimeException(RuntimeException ex) {
-//        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(ex.getMessage());
-//    }
-
-//    @ExceptionHandler(IllegalArgumentException.class)
-//    public ResponseEntity<String> handleIllegalArgumentException(IllegalArgumentException ex) {
-//        // Puedes personalizar el mensaje de error según tus necesidades
-//        String mensaje = "Error en la solicitud: " + ex.getMessage();
-//        return new ResponseEntity<>(mensaje, HttpStatus.BAD_REQUEST);
-//    }
 
     @ExceptionHandler({RuntimeException.class})
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
@@ -70,18 +55,5 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
         });
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errors);
     }
-
-//        @ExceptionHandler(MethodArgumentNotValidException.class)
-//    public ResponseEntity tratarError400(MethodArgumentNotValidException e){
-//        var errores = e.getFieldErrors().stream().map(DatosErrorValidacion::new).toList();
-//        return ResponseEntity.badRequest().body(errores);
-//    }
-//
-//    private record DatosErrorValidacion(String campo, String error){
-//        public DatosErrorValidacion(FieldError error){
-//
-//            this(error.getField(),error.getDefaultMessage());
-//        }
-//    }
 
 }

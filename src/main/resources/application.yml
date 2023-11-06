@@ -32,26 +32,5 @@ spring:
 
 api:
   security:
-    secret=${42fc144bfdd58f320f7735a8a86fefc475885d6063566e8af1ca33c71f940542}:
+    secret: ${JWT_SECRET:42fc144bfdd58f320f7735a8a86fefc475885d6063566e8af1ca33c71f940542}
 
-#spring:
-#  datasource:
-#    driver-class-name: com.mysql.cj.jdbc.Driver
-#    username: root
-#    password: root
-#    url:  jdbc:mysql://localhost:3306/midas
-#    hikari:
-#  jpa:
-#    database-platform: org.hibernate.dialect.MySQL8Dialect
-#    defer-datasource-initialization: true
-#  sql:
-#    init:
-#      data-locations:
-#        - classpath:productos.sql
-#        - classpath:usuarios.sql
-#      mode: always
-#
-#  security:
-#    jwt:
-#      filter: JwtAuthenticationFilter
-#      jwt: JwtAuthenticationProvider

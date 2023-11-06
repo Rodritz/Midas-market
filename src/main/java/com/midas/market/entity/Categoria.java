@@ -1,4 +1,4 @@
-package com.midas.market.entity.producto;
+package com.midas.market.entity;
 
 import java.util.Arrays;
 

@@ -1,11 +1,12 @@
 package com.midas.market.service;
 
+import com.midas.market.config.exceptions.EmailExistsException;
+import com.midas.market.entity.dto.AuthResponse;
 import com.midas.market.config.security.JwtService;
-import com.midas.market.controller.models.AuthResponse;
-import com.midas.market.controller.models.AuthenticationRequest;
-import com.midas.market.controller.models.RegisterRequest;
-import com.midas.market.entity.producto.Rol;
-import com.midas.market.entity.producto.Usuario;
+import com.midas.market.entity.dto.AuthenticationRequest;
+import com.midas.market.entity.dto.RegisterRequest;
+import com.midas.market.entity.Rol;
+import com.midas.market.entity.Usuario;
 import com.midas.market.repository.UsuarioRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -23,6 +24,9 @@ public class AuthServiceImpl implements IAuthService {
     private final AuthenticationManager authenticationManager;
     @Override
     public AuthResponse register(RegisterRequest request) {
+        if (usuarioRepository.existsByEmail(request.getEmail())) {
+            throw new EmailExistsException("El email ya está registrado");
+        }
         var usuario = Usuario.builder()
                 .nombre(request.getNombre())
                 .apellido(request.getApellido())

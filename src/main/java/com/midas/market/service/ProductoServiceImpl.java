@@ -1,10 +1,13 @@
 package com.midas.market.service;
 
-import com.midas.market.entity.producto.*;
+import com.midas.market.entity.*;
+import com.midas.market.entity.dto.DatosActualizacionProducto;
+import com.midas.market.entity.dto.DatosListadoProducto;
+import com.midas.market.entity.dto.DatosRegistroProducto;
+import com.midas.market.entity.dto.DatosRespuestaProducto;
 import com.midas.market.repository.ProductoRepository;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
-import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -22,8 +25,8 @@ public class ProductoServiceImpl implements IProductoService {
     @Autowired
     ProductoRepository productoRepository;
 
-    public Page<DatoslistadoProducto> findAllActivos(Pageable paginacion) {
-        return productoRepository.findByActivoTrue(paginacion).map(DatoslistadoProducto::new);
+    public Page<DatosListadoProducto> findAllActivos(Pageable paginacion) {
+        return productoRepository.findByActivoTrue(paginacion).map(DatosListadoProducto::new);
     }
 
     public DatosRespuestaProducto saveProduct(DatosRegistroProducto datosRegistroProducto) {

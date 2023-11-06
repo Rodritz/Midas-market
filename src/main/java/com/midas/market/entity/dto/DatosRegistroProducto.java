@@ -1,5 +1,6 @@
-package com.midas.market.entity.producto;
+package com.midas.market.entity.dto;
 
+import com.midas.market.entity.Categoria;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.validation.constraints.*;

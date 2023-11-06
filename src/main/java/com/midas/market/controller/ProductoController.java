@@ -1,7 +1,9 @@
 package com.midas.market.controller;
 
-import com.midas.market.entity.producto.*;
-import com.midas.market.repository.ProductoRepository;
+import com.midas.market.entity.dto.DatosActualizacionProducto;
+import com.midas.market.entity.dto.DatosRegistroProducto;
+import com.midas.market.entity.dto.DatosRespuestaProducto;
+import com.midas.market.entity.dto.DatosListadoProducto;
 import com.midas.market.service.ProductoServiceImpl;
 import io.swagger.v3.oas.annotations.Operation;
 import jakarta.transaction.Transactional;
@@ -21,23 +23,20 @@ import java.net.URI;
 public class ProductoController {
 
     @Autowired
-    private ProductoRepository productoRepository;
-
-    @Autowired
     private ProductoServiceImpl productoService;
 
 
     @GetMapping
     @Operation(summary = "Obtiene el listado de productos")
-    public ResponseEntity<Page<DatoslistadoProducto>> findAll(@PageableDefault(page = 0, size = 10, sort = {"id"}) Pageable paginacion) {
-        Page<DatoslistadoProducto> productos = productoService.findAllActivos(paginacion);
+    public ResponseEntity<Page<DatosListadoProducto>> findAll(@PageableDefault(page = 0, size = 10, sort = {"id"}) Pageable paginacion) {
+        Page<DatosListadoProducto> productos = productoService.findAllActivos(paginacion);
         return ResponseEntity.ok(productos);
     }
 
     @PostMapping
     @Operation(summary = "Registra un nuevo producto")
     public ResponseEntity<DatosRespuestaProducto> saveProduct(@Valid @RequestBody DatosRegistroProducto datosRegistroProducto,
-            UriComponentsBuilder uriComponentsBuilder) {
+                                                              UriComponentsBuilder uriComponentsBuilder) {
 
         DatosRespuestaProducto datosRespuestaProducto = productoService.saveProduct(datosRegistroProducto);
         URI url = productoService.buildProductUri(uriComponentsBuilder, datosRespuestaProducto.id());
@@ -78,6 +77,7 @@ public class ProductoController {
 
     @DeleteMapping("/{id}")
     @Transactional
+    @Operation(summary = "Elimina un producto de la base de datos")
     public ResponseEntity deleteProducto(@PathVariable Long id) {
         productoService.deleteProduct(id);
 
