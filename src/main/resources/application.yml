@@ -23,11 +23,6 @@ spring:
         - classpath:usuarios.sql
       mode: always
 
-  security:
-    jwt:
-      filter: JwtAuthenticationFilter
-      jwt: JwtAuthenticationProvider
-
 
 
 api:

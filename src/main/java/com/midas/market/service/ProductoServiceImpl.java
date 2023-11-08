@@ -38,7 +38,6 @@ public class ProductoServiceImpl implements IProductoService {
                     producto.getPrecio(), producto.getCantidad());
 
             return datosRespuestaProducto;
-
     }
 
     public URI buildProductUri(UriComponentsBuilder uriComponentsBuilder, Long id) {

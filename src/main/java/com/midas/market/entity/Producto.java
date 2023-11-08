@@ -3,6 +3,7 @@ package com.midas.market.entity;
 import com.midas.market.entity.dto.DatosRegistroProducto;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 

@@ -17,7 +17,7 @@ import org.springframework.security.web.util.matcher.RequestMatcher;
 @Configuration
 @EnableWebSecurity
 @RequiredArgsConstructor
-@EnableMethodSecurity
+@EnableMethodSecurity(prePostEnabled = true)
 public class SecurityConfig {
 
     private final JwtFilter jwtFilter;
@@ -39,6 +39,8 @@ public class SecurityConfig {
         return httpSecurity.build();
     }
 
+
+
     private RequestMatcher publicEndpoints(){
         return new OrRequestMatcher(
                 new AntPathRequestMatcher("/h2-console/**"),
@@ -46,8 +48,6 @@ public class SecurityConfig {
                 new AntPathRequestMatcher("/v3/api-docs/**"),
                 new AntPathRequestMatcher("/swagger-ui.html"),
                 new AntPathRequestMatcher("/swagger-ui/**")
-//                new AntPathRequestMatcher("/usuarios"),
-//                new AntPathRequestMatcher("/productos/**")
         );
     }
 }

@@ -31,7 +31,7 @@ public class SpringDocConfiguration {
                                 .email("rodrigourq@gmail.com"))
                         .license(new License()
                                 .name("Apache 2.0")
-                                .url("http://midas_market/api/productos")));  }
+                                .url("http://localhost:8080/swagger-ui/index.html#/")));  }
 
     @Bean
     public void message(){

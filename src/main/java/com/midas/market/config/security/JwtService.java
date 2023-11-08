@@ -6,14 +6,17 @@ import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 import java.security.Key;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
+import java.util.stream.Collectors;
 
 @Service
 public class JwtService {
@@ -21,8 +24,11 @@ public class JwtService {
     @Value("${api.security.secret}")
     private  String SECRET_KEY;
 
+
     public String generateToken(UserDetails userDetails){
-        return generateToken(new HashMap<>(),userDetails);
+        Map<String, Object> claims = new HashMap<>();
+        claims.put("ROLE", userDetails.getAuthorities().stream().map(GrantedAuthority::getAuthority).collect(Collectors.toList()));
+        return generateToken(claims, userDetails);
     }
     public String generateToken(Map<String,Object> extraClaims, UserDetails userDetails){
         return Jwts.builder().setClaims(extraClaims)
@@ -32,6 +38,8 @@ public class JwtService {
                 .signWith(getSignInKey(), SignatureAlgorithm.HS256)
                 .compact();
     }
+
+
 
     public String getUserName(String token) {
         return getClaim(token, Claims::getSubject);
@@ -58,7 +66,12 @@ public class JwtService {
 
     public boolean validateToken(String token, UserDetails userDetails) {
         final String username = getUserName(token);
-        return (username.equals(userDetails.getUsername()) && !isTokenExpired(token));
+        final List<String> role = getClaim(token, claims -> claims.get("ROLE", List.class));
+
+        return (username.equals(userDetails.getUsername()) &&
+                role != null &&
+                role.equals(userDetails.getAuthorities().stream().map(GrantedAuthority::getAuthority).collect(Collectors.toList())) &&
+                !isTokenExpired(token));
     }
 
     private boolean isTokenExpired(String token) {

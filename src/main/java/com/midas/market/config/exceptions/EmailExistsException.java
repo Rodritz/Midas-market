@@ -6,7 +6,4 @@ public class EmailExistsException extends RuntimeException {
         super(message);
     }
 
-    public EmailExistsException(String message, Throwable cause) {
-        super(message, cause);
-    }
 }

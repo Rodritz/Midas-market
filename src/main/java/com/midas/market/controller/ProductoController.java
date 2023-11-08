@@ -13,6 +13,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
@@ -26,14 +27,16 @@ public class ProductoController {
     private ProductoServiceImpl productoService;
 
 
-    @GetMapping
+    @GetMapping("/listar")
+    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_CLIENTE')")
     @Operation(summary = "Obtiene el listado de productos")
     public ResponseEntity<Page<DatosListadoProducto>> findAll(@PageableDefault(page = 0, size = 10, sort = {"id"}) Pageable paginacion) {
         Page<DatosListadoProducto> productos = productoService.findAllActivos(paginacion);
         return ResponseEntity.ok(productos);
     }
 
-    @PostMapping
+    @PostMapping("/registrar")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @Operation(summary = "Registra un nuevo producto")
     public ResponseEntity<DatosRespuestaProducto> saveProduct(@Valid @RequestBody DatosRegistroProducto datosRegistroProducto,
                                                               UriComponentsBuilder uriComponentsBuilder) {
@@ -44,7 +47,8 @@ public class ProductoController {
         return ResponseEntity.created(url).body(datosRespuestaProducto);
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("/actualizar/{id}")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @Transactional
     @Operation(summary = "Actualiza la informacion de un producto")
     public ResponseEntity<DatosRespuestaProducto> updateProduct(@PathVariable Long id,
@@ -57,6 +61,7 @@ public class ProductoController {
 
 
     @PutMapping("/desactivar/{id}")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @Operation(summary = "Pasa un producto a estado Inactivo mediante el id")
     public ResponseEntity deleteLogico(@PathVariable Long id) {
         productoService.desactivarProducto(id);
@@ -67,6 +72,7 @@ public class ProductoController {
     }
 
     @PutMapping("/activar/{id}")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @Transactional
     @Operation(summary = "Pasa un producto a estado Activo mediante el id")
     public ResponseEntity<DatosRespuestaProducto> activarProducto(@PathVariable Long id) {
@@ -75,7 +81,8 @@ public class ProductoController {
         return ResponseEntity.ok(datosRespuestaProducto);
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/eliminar/{id}")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @Transactional
     @Operation(summary = "Elimina un producto de la base de datos")
     public ResponseEntity deleteProducto(@PathVariable Long id) {

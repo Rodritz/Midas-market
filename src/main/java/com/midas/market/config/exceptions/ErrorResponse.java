@@ -4,8 +4,16 @@ import lombok.Data;
 
 @Data
 public class ErrorResponse {
-    private String timestamp;
-    private int status;
-    private String error;
     private String message;
+    private int status;
+
+
+    public ErrorResponse(String message, int status) {
+        this.message = message;
+        this.status = status;
+    }
+
+    public ErrorResponse() {
+
+    }
 }
