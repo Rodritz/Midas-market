@@ -2,10 +2,7 @@ package com.midas.market.entity;
 
 import com.midas.market.entity.dto.DatosRegistroProducto;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 @Data
 @AllArgsConstructor
@@ -37,4 +34,6 @@ public class Producto {
         this.precio = datosRegistroProducto.precio();
         this.cantidad = datosRegistroProducto.cantidad();
     }
+
+
 }
