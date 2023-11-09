@@ -21,21 +21,23 @@ public class SpringDocConfiguration {
                                 new SecurityScheme()
                                         .type(SecurityScheme.Type.HTTP)
                                         .scheme("bearer")
-                                        .bearerFormat("JWT")))
+                                        .bearerFormat("JWT")
+                                        .in(SecurityScheme.In.HEADER)))
                 .info(new Info()
                         .title("Midas Market")
-                        .description("API Rest de la aplicación Midas Market, que contiene las funcionalidades de CRUD de Productos, sumandole autenticacion" +
-                                "registro y autenticacion de usuarios")
+                        .description("API Rest de la aplicación Midas Market, que contiene las funcionalidades de un  CRUD de Productos securizada mediante uso de Tokens")
                         .contact(new Contact()
                                 .name("Equipo Backend")
                                 .email("rodrigourq@gmail.com"))
                         .license(new License()
                                 .name("Apache 2.0")
-                                .url("http://localhost:8080/swagger-ui/index.html#/")));  }
+                                .url("http://midas-market.com.ar")));  }
 
     @Bean
     public void message(){
         System.out.println("Bearer is working");
     }
+
+
 
 }
